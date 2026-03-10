@@ -1,0 +1,64 @@
+{
+	"apiVersion": 3,
+	"name": "zuno/toc",
+	"title": "Zuno TOC (Obsah článku)",
+	"category": "zuno",
+	"icon": "list-view",
+	"description": "Automatický obsah článku s live náhľadom nadpisov.",
+	"keywords": [ "toc", "obsah", "nadpisy", "table of contents", "zuno toc", "obsahartiklu", "zuno" ],
+	"textdomain": "zuno-toc",
+	"supports": {
+		"html": false,
+		"multiple": false,
+		"align": [ "wide", "full" ]
+	},
+	"attributes": {
+		"style": {
+			"type": "string",
+			"default": "minimal"
+		},
+		"excludedHeadings": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "string"
+			}
+		},
+		"customLabels": {
+			"type": "object",
+			"default": {}
+		},
+		"customAnchors": {
+			"type": "object",
+			"default": {}
+		},
+		"listStyle": {
+			"type": "string",
+			"default": "default"
+		},
+		"showToggle": {
+			"type": "string",
+			"default": "default"
+		},
+		"stripNumbers": {
+			"type": "boolean",
+			"default": false
+		},
+		"accentColor": {
+			"type": "string",
+			"default": ""
+		},
+		"defaultCollapsed": {
+			"type": "string",
+			"default": "default"
+		},
+		"fontSize": {
+			"type": "string",
+			"default": "default"
+		}
+	},
+	"editorScript": "file:./src/index.js",
+	"editorStyle": "file:./src/editor.css",
+	"style": "file:./src/style.css",
+	"viewScript": "file:./assets/frontend.js"
+}

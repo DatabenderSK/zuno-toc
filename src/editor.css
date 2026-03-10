@@ -1,0 +1,454 @@
+/* ─── Zuno TOC Editor Preview ─── */
+
+.zuno-toc-editor {
+	--zuno-toc-accent: #5ba462;
+	--zuno-toc-font-size: 15px;
+	border: 1px solid #e8e8e8;
+	border-radius: 12px;
+	padding: 0;
+	background: #fff;
+	font-size: var(--zuno-toc-font-size);
+	line-height: 1.7;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+	margin-bottom: 2rem;
+}
+
+.zuno-toc-editor__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px 28px 14px;
+}
+
+.zuno-toc-editor__title {
+	font-weight: 700;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #1a1a1a;
+	display: inline-block;
+}
+
+/* Toggle button preview in editor */
+.zuno-toc-editor__toggle-preview {
+	font-size: 12px;
+	color: #888;
+	padding: 3px 10px;
+	border-radius: 4px;
+	background: #f3f4f6;
+	cursor: default;
+	user-select: none;
+}
+
+.zuno-toc-editor__body {
+	padding: 6px 16px 24px 28px;
+}
+
+.zuno-toc-editor__empty {
+	color: #999;
+	font-style: italic;
+	margin: 0;
+}
+
+/* ─── Heading Item ─── */
+
+.zuno-toc-editor__item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 5px 8px;
+	margin: 2px -8px;
+	border-radius: 6px;
+	position: relative;
+	cursor: default;
+	transition: opacity 0.15s, background 0.15s;
+}
+
+.zuno-toc-editor__item:hover {
+	background: #f9fafb;
+}
+
+.zuno-toc-editor__item--excluded {
+	opacity: 0.7;
+	background: #fef2f2;
+}
+
+.zuno-toc-editor__item--excluded:hover {
+	background: #fee2e2;
+}
+
+.zuno-toc-editor__item--excluded .zuno-toc-editor__text {
+	text-decoration: line-through;
+	color: #dc2626;
+}
+
+/* ─── Bullet dots in editor (non-numbered) ─── */
+
+.zuno-toc-editor:not(.zuno-toc-editor--numbered) .zuno-toc-editor__item:not(.zuno-toc-editor__item--excluded)::before {
+	content: '';
+	width: 7px;
+	height: 7px;
+	background: var(--zuno-toc-accent);
+	border-radius: 50%;
+	flex-shrink: 0;
+}
+
+/* Hollow circle for sub-items */
+.zuno-toc-editor:not(.zuno-toc-editor--numbered) .zuno-toc-editor__item--sub:not(.zuno-toc-editor__item--excluded)::before {
+	width: 6px;
+	height: 6px;
+	background: transparent;
+	border: 1.5px solid #999;
+}
+
+/* ─── H-level badge ─── */
+
+.zuno-toc-editor__badge {
+	font-size: 10px;
+	font-weight: 700;
+	color: #fff;
+	padding: 1px 5px;
+	border-radius: 3px;
+	line-height: 1.4;
+	flex-shrink: 0;
+	letter-spacing: 0.02em;
+	margin-right: 2px;
+}
+
+/* ─── Text ─── */
+
+.zuno-toc-editor__text {
+	color: #1a1a1a;
+	font-weight: 600;
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* Custom text – only italic + tag, NO color change */
+.zuno-toc-editor__text--custom {
+	font-style: italic;
+}
+
+.zuno-toc-editor__text--custom::after {
+	content: 'upravené';
+	display: inline-block;
+	font-size: 9px;
+	font-style: normal;
+	font-weight: 600;
+	color: #fff;
+	background: var(--zuno-toc-accent);
+	padding: 0 4px;
+	border-radius: 3px;
+	margin-left: 6px;
+	vertical-align: middle;
+	line-height: 1.5;
+	letter-spacing: 0.02em;
+}
+
+.zuno-toc-editor__item--sub .zuno-toc-editor__text {
+	font-weight: 400;
+	color: #333;
+}
+
+/* ─── Custom anchor indicator ─── */
+
+.zuno-toc-editor__custom-anchor {
+	font-size: 11px;
+	color: #3b82f6;
+	font-family: monospace;
+	flex-shrink: 0;
+	max-width: 140px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* ─── Action buttons (right side) ─── */
+
+.zuno-toc-editor__actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex-shrink: 0;
+	opacity: 0.7;
+	transition: opacity 0.15s;
+}
+
+.zuno-toc-editor__item:hover .zuno-toc-editor__actions {
+	opacity: 1;
+}
+
+/* Excluded row: actions always visible */
+.zuno-toc-editor__item--excluded .zuno-toc-editor__actions {
+	opacity: 1;
+}
+
+.zuno-toc-editor__action {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 4px;
+	cursor: pointer;
+	color: #666;
+	transition: background 0.1s, color 0.1s;
+}
+
+.zuno-toc-editor__action:hover {
+	background: #f0f0f0;
+	color: #333;
+}
+
+.zuno-toc-editor__action--active {
+	color: var(--zuno-toc-accent);
+}
+
+.zuno-toc-editor__action--active:hover {
+	color: #333;
+	background: #e8f5e9;
+}
+
+.zuno-toc-editor__action--eye {
+	color: var(--zuno-toc-accent);
+}
+
+.zuno-toc-editor__action--hidden {
+	color: #ef4444;
+}
+
+.zuno-toc-editor__action--hidden:hover {
+	background: #fce4e4;
+	color: #c62828;
+}
+
+/* ─── Numbered preview (CSS counters) ─── */
+
+.zuno-toc-editor--numbered .zuno-toc-editor__body {
+	counter-reset: toc-counter toc-sub-counter;
+}
+
+.zuno-toc-editor--numbered .zuno-toc-editor__item:not(.zuno-toc-editor__item--sub):not(.zuno-toc-editor__item--excluded) {
+	counter-increment: toc-counter;
+	counter-reset: toc-sub-counter;
+}
+
+.zuno-toc-editor--numbered .zuno-toc-editor__item--sub:not(.zuno-toc-editor__item--excluded) {
+	counter-increment: toc-sub-counter;
+}
+
+.zuno-toc-editor--numbered .zuno-toc-editor__item:not(.zuno-toc-editor__item--sub):not(.zuno-toc-editor__item--excluded) .zuno-toc-editor__text::before {
+	content: counter(toc-counter) ". ";
+	color: #888;
+	font-weight: 700;
+	font-style: normal;
+}
+
+.zuno-toc-editor--numbered .zuno-toc-editor__item--sub:not(.zuno-toc-editor__item--excluded) .zuno-toc-editor__text::before {
+	content: counter(toc-sub-counter, lower-alpha) ". ";
+	color: #aaa;
+	font-weight: 600;
+	font-style: normal;
+}
+
+/* ─── Sidebar color picker ─── */
+
+.zuno-toc-editor__color-swatches {
+	display: flex;
+	gap: 6px;
+	flex-wrap: wrap;
+	margin-top: 6px;
+}
+
+.zuno-toc-editor__color-swatch {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	cursor: pointer;
+	padding: 0;
+	border: 3px solid transparent;
+	transition: border-color 0.1s, transform 0.1s;
+}
+
+.zuno-toc-editor__color-swatch:hover {
+	transform: scale(1.15);
+}
+
+.zuno-toc-editor__color-swatch--active {
+	border-color: #1a1a1a;
+}
+
+/* ─── Inline editing (anchor / label) ─── */
+
+.zuno-toc-editor__inline-edit {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 0 4px 32px;
+	margin-top: -2px;
+}
+
+.zuno-toc-editor__inline-prefix {
+	color: #999;
+	font-size: 13px;
+	font-family: monospace;
+}
+
+.zuno-toc-editor__inline-input {
+	flex: 1;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	padding: 3px 8px;
+	font-size: 13px;
+	font-family: monospace;
+	color: #333;
+	outline: none;
+	max-width: 300px;
+}
+
+.zuno-toc-editor__inline-input:focus {
+	border-color: var(--zuno-toc-accent);
+	box-shadow: 0 0 0 1px var(--zuno-toc-accent);
+}
+
+.zuno-toc-editor__inline-input--wide {
+	font-family: inherit;
+	max-width: 400px;
+}
+
+.zuno-toc-editor__inline-save,
+.zuno-toc-editor__inline-reset {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	transition: background 0.1s;
+}
+
+.zuno-toc-editor__inline-save {
+	color: var(--zuno-toc-accent);
+}
+
+.zuno-toc-editor__inline-save:hover {
+	background: #e8f5e9;
+}
+
+.zuno-toc-editor__inline-reset {
+	color: #e57373;
+}
+
+.zuno-toc-editor__inline-reset:hover {
+	background: #fce4e4;
+}
+
+/* ─── Style: Rounded (editor) ─── */
+
+.zuno-toc-editor--rounded {
+	border: none;
+	background: #f7f8fa;
+	border-radius: 16px;
+	box-shadow: none;
+}
+
+.zuno-toc-editor--rounded .zuno-toc-editor__header {
+	padding: 22px 32px 14px;
+}
+
+.zuno-toc-editor--rounded .zuno-toc-editor__body {
+	padding: 6px 20px 28px 32px;
+}
+
+.zuno-toc-editor--rounded .zuno-toc-editor__item:hover {
+	background: #eef0f3;
+}
+
+.zuno-toc-editor--rounded .zuno-toc-editor__toggle-preview {
+	background: #e5e7eb;
+}
+
+/* ─── Style: Dark (editor) ─── */
+
+.zuno-toc-editor--dark {
+	background: #1e293b;
+	border-color: #334155;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__title {
+	color: #f1f5f9;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__text {
+	color: #f1f5f9;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__item:hover {
+	background: #263347;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__item--sub .zuno-toc-editor__text {
+	color: #cbd5e1;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__item--excluded {
+	background: rgba(220, 38, 38, 0.12);
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__item--excluded:hover {
+	background: rgba(220, 38, 38, 0.2);
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__item--excluded .zuno-toc-editor__text {
+	color: #f87171;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__action {
+	color: #94a3b8;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__action:hover {
+	background: #334155;
+	color: #e2e8f0;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__action--eye {
+	color: #86efac;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__action--hidden {
+	color: #f87171;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__custom-anchor {
+	color: #60a5fa;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__toggle-preview {
+	background: #334155;
+	color: #94a3b8;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__empty {
+	color: #64748b;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__inline-input {
+	background: #334155;
+	border-color: #475569;
+	color: #e2e8f0;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__inline-prefix {
+	color: #64748b;
+}
+
+.zuno-toc-editor--dark .zuno-toc-editor__color-swatch--active {
+	border-color: #e2e8f0;
+}
