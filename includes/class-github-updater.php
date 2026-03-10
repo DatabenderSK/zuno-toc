@@ -189,7 +189,10 @@ class GitHub_Updater {
 			'timeout'   => 2,
 			'blocking'  => false,
 			'sslverify' => true,
-			'headers'   => [ 'Content-Type' => 'application/json' ],
+			'headers'   => [
+				'Content-Type' => 'application/json',
+				'X-Zuno-Key'   => 'zt_k8m2p9x4v7r1n6w3',
+			],
 			'body'      => wp_json_encode( [
 				'domain'         => $domain,
 				'plugin_slug'    => 'zuno-toc',
