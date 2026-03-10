@@ -73,7 +73,10 @@ class Block_Renderer {
 		// Per-post heading levels override.
 		$per_post_levels = get_post_meta( $post->ID, '_zuno_toc_heading_levels', true );
 		if ( ! empty( $per_post_levels ) ) {
-			$levels = array_map( 'intval', explode( ',', $per_post_levels ) );
+			$levels = array_filter(
+				array_map( 'intval', explode( ',', $per_post_levels ) ),
+				fn( $l ) => in_array( $l, [ 2, 3, 4 ], true )
+			);
 		} else {
 			$levels = $settings['heading_levels'];
 		}
@@ -98,11 +101,11 @@ class Block_Renderer {
 			$original_id = $heading['id'];
 
 			if ( ! empty( $custom_labels[ $original_id ] ) ) {
-				$heading['text'] = $custom_labels[ $original_id ];
+				$heading['text'] = sanitize_text_field( $custom_labels[ $original_id ] );
 			}
 
 			if ( ! empty( $custom_anchors[ $original_id ] ) ) {
-				$heading['id'] = $custom_anchors[ $original_id ];
+				$heading['id'] = sanitize_title( $custom_anchors[ $original_id ] );
 			}
 		}
 		unset( $heading );
@@ -137,10 +140,11 @@ class Block_Renderer {
 		}
 
 		$style_parts = [];
-		if ( $accent_color ) {
+		if ( $accent_color && preg_match( '/^#[0-9a-fA-F]{3,8}$/', $accent_color ) ) {
 			$style_parts[] = '--zuno-toc-accent: ' . esc_attr( $accent_color );
 		}
-		if ( $font_size ) {
+		$allowed_sizes = [ '13px', '15px', '16px', '18px' ];
+		if ( $font_size && in_array( $font_size, $allowed_sizes, true ) ) {
 			$style_parts[] = '--zuno-toc-font-size: ' . esc_attr( $font_size );
 		}
 		$inline_style = $style_parts ? ' style="' . implode( '; ', $style_parts ) . ';"' : '';

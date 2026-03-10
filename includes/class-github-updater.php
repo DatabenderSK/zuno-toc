@@ -201,6 +201,18 @@ class GitHub_Updater {
 			return null;
 		}
 
+		// Validate that URLs point to GitHub.
+		foreach ( [ 'zipball_url', 'html_url' ] as $url_key ) {
+			if ( ! empty( $body[ $url_key ] ) ) {
+				$parsed = wp_parse_url( $body[ $url_key ] );
+				$host   = $parsed['host'] ?? '';
+				if ( $host !== 'github.com' && $host !== 'api.github.com' ) {
+					set_transient( self::CACHE_KEY, '', self::CACHE_TTL );
+					return null;
+				}
+			}
+		}
+
 		set_transient( self::CACHE_KEY, $body, self::CACHE_TTL );
 
 		return $body;

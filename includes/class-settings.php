@@ -144,7 +144,7 @@ class Settings {
 							<?php foreach ( $post_types as $pt ) : ?>
 								<label style="display:block;margin-bottom:4px;">
 									<input type="checkbox"
-										name="<?php echo self::OPTION_KEY; ?>[post_types][]"
+										name="<?php echo esc_attr( self::OPTION_KEY ); ?>[post_types][]"
 										value="<?php echo esc_attr( $pt->name ); ?>"
 										<?php checked( in_array( $pt->name, $settings['post_types'], true ) ); ?>
 									>
@@ -157,7 +157,7 @@ class Settings {
 						<th scope="row">Minimum nadpisov</th>
 						<td>
 							<input type="number" min="1" max="20"
-								name="<?php echo self::OPTION_KEY; ?>[min_headings]"
+								name="<?php echo esc_attr( self::OPTION_KEY ); ?>[min_headings]"
 								value="<?php echo esc_attr( $settings['min_headings'] ); ?>"
 							>
 						</td>
@@ -168,11 +168,11 @@ class Settings {
 							<?php foreach ( [ 2, 3, 4 ] as $level ) : ?>
 								<label style="margin-right:12px;">
 									<input type="checkbox"
-										name="<?php echo self::OPTION_KEY; ?>[heading_levels][]"
-										value="<?php echo $level; ?>"
+										name="<?php echo esc_attr( self::OPTION_KEY ); ?>[heading_levels][]"
+										value="<?php echo esc_attr( $level ); ?>"
 										<?php checked( in_array( $level, $settings['heading_levels'], true ) ); ?>
 									>
-									H<?php echo $level; ?>
+									H<?php echo esc_html( $level ); ?>
 								</label>
 							<?php endforeach; ?>
 						</td>
@@ -180,7 +180,7 @@ class Settings {
 					<tr>
 						<th scope="row">Predvolený štýl</th>
 						<td>
-							<select name="<?php echo self::OPTION_KEY; ?>[default_style]">
+							<select name="<?php echo esc_attr( self::OPTION_KEY ); ?>[default_style]">
 								<option value="minimal" <?php selected( $settings['default_style'], 'minimal' ); ?>>Minimálny</option>
 								<option value="rounded" <?php selected( $settings['default_style'], 'rounded' ); ?>>Zaoblený</option>
 								<option value="dark" <?php selected( $settings['default_style'], 'dark' ); ?>>Tmavý</option>
@@ -191,7 +191,7 @@ class Settings {
 						<th scope="row">Titulok TOC</th>
 						<td>
 							<input type="text" class="regular-text"
-								name="<?php echo self::OPTION_KEY; ?>[toc_title]"
+								name="<?php echo esc_attr( self::OPTION_KEY ); ?>[toc_title]"
 								value="<?php echo esc_attr( $settings['toc_title'] ); ?>"
 							>
 						</td>
@@ -201,7 +201,7 @@ class Settings {
 						<td>
 							<label style="display:block;margin-bottom:4px;">
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[auto_insert]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[auto_insert]"
 									value="1"
 									<?php checked( $settings['auto_insert'] ); ?>
 								>
@@ -209,7 +209,7 @@ class Settings {
 							</label>
 							<label style="display:block;margin-bottom:4px;">
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[show_toggle]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[show_toggle]"
 									value="1"
 									<?php checked( $settings['show_toggle'] ); ?>
 								>
@@ -217,7 +217,7 @@ class Settings {
 							</label>
 							<label style="display:block;margin-bottom:4px;">
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[numbering]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[numbering]"
 									value="1"
 									<?php checked( $settings['numbering'] ); ?>
 								>
@@ -225,7 +225,7 @@ class Settings {
 							</label>
 							<label style="display:block;margin-bottom:4px;">
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[smooth_scroll]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[smooth_scroll]"
 									value="1"
 									<?php checked( $settings['smooth_scroll'] ); ?>
 								>
@@ -233,7 +233,7 @@ class Settings {
 							</label>
 							<label style="display:block;margin-bottom:4px;">
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[default_collapsed]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[default_collapsed]"
 									value="1"
 									<?php checked( $settings['default_collapsed'] ); ?>
 								>
@@ -246,7 +246,7 @@ class Settings {
 						<td style="display: flex; align-items: center; gap: 8px;">
 							<input type="text"
 								id="zuno-toc-color-hex"
-								name="<?php echo self::OPTION_KEY; ?>[accent_color]"
+								name="<?php echo esc_attr( self::OPTION_KEY ); ?>[accent_color]"
 								value="<?php echo esc_attr( $settings['accent_color'] ?: '#5ba462' ); ?>"
 								placeholder="#5ba462"
 								style="max-width: 120px; font-family: monospace;"
@@ -261,7 +261,7 @@ class Settings {
 					<tr>
 						<th scope="row">Veľkosť písma</th>
 						<td>
-							<select name="<?php echo self::OPTION_KEY; ?>[font_size]">
+							<select name="<?php echo esc_attr( self::OPTION_KEY ); ?>[font_size]">
 								<option value="" <?php selected( $settings['font_size'], '' ); ?>>Predvolená (16px)</option>
 								<option value="13px" <?php selected( $settings['font_size'], '13px' ); ?>>Malé (13px)</option>
 								<option value="16px" <?php selected( $settings['font_size'], '16px' ); ?>>Stredné (16px)</option>
@@ -274,7 +274,7 @@ class Settings {
 						<td>
 							<label>
 								<input type="checkbox"
-									name="<?php echo self::OPTION_KEY; ?>[hide_admin_bar]"
+									name="<?php echo esc_attr( self::OPTION_KEY ); ?>[hide_admin_bar]"
 									value="1"
 									<?php checked( ! empty( $settings['hide_admin_bar'] ) ); ?>
 								>

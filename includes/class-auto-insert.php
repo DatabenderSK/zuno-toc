@@ -47,7 +47,10 @@ class Auto_Insert {
 		// Per-post heading levels override.
 		$per_post_levels = get_post_meta( $post->ID, '_zuno_toc_heading_levels', true );
 		if ( ! empty( $per_post_levels ) ) {
-			$levels = array_map( 'intval', explode( ',', $per_post_levels ) );
+			$levels = array_filter(
+				array_map( 'intval', explode( ',', $per_post_levels ) ),
+				fn( $l ) => in_array( $l, [ 2, 3, 4 ], true )
+			);
 		} else {
 			$levels = $settings['heading_levels'];
 		}
