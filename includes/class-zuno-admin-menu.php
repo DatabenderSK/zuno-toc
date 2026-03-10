@@ -10,8 +10,7 @@ defined( 'ABSPATH' ) || exit;
 class Zuno_Admin_Menu {
 
 	public function init(): void {
-		// Priority 9999 = after virtually all other plugins.
-		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 9999 );
+		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 200 );
 	}
 
 	/**
