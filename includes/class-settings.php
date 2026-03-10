@@ -20,7 +20,7 @@ class Settings {
 			'smooth_scroll'     => true,
 			'default_collapsed' => false,
 			'accent_color'      => '',
-			'font_size'         => '',
+			'font_size'         => '16px',
 			'hide_admin_bar'    => false,
 		];
 	}
@@ -262,7 +262,7 @@ class Settings {
 						<th scope="row">Veľkosť písma</th>
 						<td>
 							<select name="<?php echo self::OPTION_KEY; ?>[font_size]">
-								<option value="" <?php selected( $settings['font_size'], '' ); ?>>Predvolená (15px)</option>
+								<option value="" <?php selected( $settings['font_size'], '' ); ?>>Predvolená (16px)</option>
 								<option value="13px" <?php selected( $settings['font_size'], '13px' ); ?>>Malé (13px)</option>
 								<option value="16px" <?php selected( $settings['font_size'], '16px' ); ?>>Stredné (16px)</option>
 								<option value="18px" <?php selected( $settings['font_size'], '18px' ); ?>>Veľké (18px)</option>

@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 class Zuno_Admin_Menu {
 
 	public function init(): void {
-		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 45 );
+		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 990 );
 	}
 
 	/**

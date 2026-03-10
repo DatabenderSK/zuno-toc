@@ -2,7 +2,7 @@
 
 nav.zuno-toc {
 	--zuno-toc-accent: #5ba462;
-	--zuno-toc-font-size: 15px;
+	--zuno-toc-font-size: 16px;
 	margin: 2em 0 2.5em !important;
 	font-size: var(--zuno-toc-font-size) !important;
 	line-height: 1.7;

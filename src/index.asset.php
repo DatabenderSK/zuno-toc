@@ -9,5 +9,5 @@ return [
 		'wp-plugins',
 		'wp-edit-post',
 	],
-	'version' => '1.0.1',
+	'version' => '1.0.2',
 ];

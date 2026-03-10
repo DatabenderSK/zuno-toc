@@ -4,7 +4,7 @@ Tags: table of contents, toc, headings, obsah, gutenberg, zuno
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,10 @@ Panel "Zuno TOC" v pravom sidebar dokumentu → zaškrtnite "Vypnúť TOC pre te
 Áno. V Zuno → Zuno TOC → Úrovne nadpisov zaškrtnite H4.
 
 == Changelog ==
+
+= 1.0.2 =
+* Predvolená veľkosť písma zmenená na 16px
+* Admin bar "Zuno" presunutý ku koncu (pred skratky)
 
 = 1.0.1 =
 * Settings presunuté pod Settings menu (nie top-level)

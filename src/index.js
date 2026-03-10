@@ -27,7 +27,7 @@
 		show_toggle: true,
 		default_collapsed: false,
 		accent_color: '',
-		font_size: '',
+		font_size: '16px',
 	};
 
 	var FONT_SIZE_PRESETS = [
@@ -357,7 +357,7 @@
 		var effectiveShowToggle = showToggle === 'yes' || (showToggle === 'default' && !!settings.show_toggle);
 		var effectiveCollapsed = defaultCollapsed === 'collapsed' || (defaultCollapsed === 'default' && !!settings.default_collapsed);
 		var effectiveAccent = accentColor || settings.accent_color || '#5ba462';
-		var effectiveFontSize = fontSize !== 'default' ? fontSize : (settings.font_size || '15px');
+		var effectiveFontSize = fontSize !== 'default' ? fontSize : (settings.font_size || '16px');
 
 		var blocks = useSelect(function (select) {
 			return select('core/block-editor').getBlocks();
@@ -450,7 +450,7 @@
 		if (effectiveAccent !== '#5ba462') {
 			editorStyle['--zuno-toc-accent'] = effectiveAccent;
 		}
-		if (effectiveFontSize !== '15px') {
+		if (effectiveFontSize !== '16px') {
 			editorStyle['--zuno-toc-font-size'] = effectiveFontSize;
 		}
 
@@ -594,7 +594,7 @@
 					label: 'Veľkosť písma',
 					value: fontSize,
 					help: fontSize === 'default'
-						? 'Používa globálne nastavenie (' + (settings.font_size || '15px') + ')'
+						? 'Používa globálne nastavenie (' + (settings.font_size || '16px') + ')'
 						: null,
 					options: [
 						{ label: 'Predvolený', value: 'default' },
