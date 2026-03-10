@@ -4,7 +4,7 @@ Tags: table of contents, toc, headings, obsah, gutenberg, zuno
 Requires at least: 6.0
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,9 @@ Panel "Zuno TOC" v pravom sidebar dokumentu → zaškrtnite "Vypnúť TOC pre te
 Áno. V Zuno → Zuno TOC → Úrovne nadpisov zaškrtnite H4.
 
 == Changelog ==
+
+= 1.0.4 =
+* Admin bar "Zuno" priority 9999 – zobrazí sa za WPCode, pred Skratky/Cache
 
 = 1.0.3 =
 * Admin bar "Zuno" presunutý na pravú stranu (top-secondary group)
