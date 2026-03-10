@@ -10,11 +10,11 @@ defined( 'ABSPATH' ) || exit;
 class Zuno_Admin_Menu {
 
 	public function init(): void {
-		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 990 );
+		add_action( 'admin_bar_menu', [ $this, 'admin_bar' ], 999 );
 	}
 
 	/**
-	 * Add "Zuno" dropdown to the admin bar.
+	 * Add "Zuno" dropdown to the admin bar (right side, before "Howdy" menu).
 	 */
 	public function admin_bar( \WP_Admin_Bar $wp_admin_bar ): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -28,9 +28,10 @@ class Zuno_Admin_Menu {
 		}
 
 		$wp_admin_bar->add_node( [
-			'id'    => 'zuno',
-			'title' => 'Zuno',
-			'href'  => admin_url( 'options-general.php?page=zuno-toc' ),
+			'id'     => 'zuno',
+			'parent' => 'top-secondary',
+			'title'  => 'Zuno',
+			'href'   => admin_url( 'options-general.php?page=zuno-toc' ),
 		] );
 
 		$wp_admin_bar->add_node( [
