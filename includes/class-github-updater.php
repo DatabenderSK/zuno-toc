@@ -122,7 +122,7 @@ class GitHub_Updater {
 	 * Add "Nastavenia" link next to Deactivate.
 	 */
 	public function action_links( array $links ): array {
-		$url = admin_url( 'admin.php?page=zuno-toc' );
+		$url = admin_url( 'options-general.php?page=zuno-toc' );
 		array_unshift( $links, '<a href="' . esc_url( $url ) . '">Nastavenia</a>' );
 		return $links;
 	}

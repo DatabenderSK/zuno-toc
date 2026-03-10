@@ -34,8 +34,7 @@ class Settings {
 	}
 
 	public function add_menu(): void {
-		add_submenu_page(
-			'zuno',
+		add_options_page(
 			'Zuno TOC – Nastavenia',
 			'Zuno TOC',
 			'manage_options',

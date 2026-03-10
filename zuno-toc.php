@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Zuno TOC – Table of Contents
  * Description: Gutenberg blok pre obsah článku s live náhľadom, toggle funkciou a auto-insertom.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Martin Pavlič
  * Text Domain: zuno-toc
  * Requires at least: 6.0
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'ZUNO_TOC_VERSION', '1.0.0' );
+define( 'ZUNO_TOC_VERSION', '1.0.1' );
 define( 'ZUNO_TOC_FILE', __FILE__ );
 define( 'ZUNO_TOC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ZUNO_TOC_URL', plugin_dir_url( __FILE__ ) );
