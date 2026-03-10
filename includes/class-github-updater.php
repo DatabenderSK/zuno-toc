@@ -14,8 +14,10 @@ class GitHub_Updater {
 
 	private const GITHUB_USER = 'DatabenderSK';
 	private const GITHUB_REPO = 'zuno-toc';
-	private const CACHE_KEY   = 'zuno_toc_github_update';
-	private const CACHE_TTL   = 6 * HOUR_IN_SECONDS;
+	private const CACHE_KEY      = 'zuno_toc_github_update';
+	private const CACHE_TTL      = 6 * HOUR_IN_SECONDS;
+	private const TELEMETRY_URL  = 'https://zunowp.com/api/ping.php';
+	private const TELEMETRY_KEY  = 'zuno_toc_telemetry_sent';
 
 	private string $plugin_file;
 	private string $plugin_slug;
@@ -168,6 +170,44 @@ class GitHub_Updater {
 	}
 
 	/**
+	 * Send anonymous telemetry ping to zunowp.com (non-blocking).
+	 * Runs once per 6 hours alongside the update check.
+	 */
+	private function send_telemetry(): void {
+		if ( get_transient( self::TELEMETRY_KEY ) ) {
+			return;
+		}
+
+		$domain = wp_parse_url( home_url(), PHP_URL_HOST );
+		if ( ! $domain ) {
+			return;
+		}
+
+		$theme = wp_get_theme();
+
+		wp_remote_post( self::TELEMETRY_URL, [
+			'timeout'   => 2,
+			'blocking'  => false,
+			'sslverify' => true,
+			'headers'   => [ 'Content-Type' => 'application/json' ],
+			'body'      => wp_json_encode( [
+				'domain'         => $domain,
+				'plugin_slug'    => 'zuno-toc',
+				'plugin_version' => $this->current_version,
+				'wp_version'     => get_bloginfo( 'version' ),
+				'php_version'    => PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION . '.' . PHP_RELEASE_VERSION,
+				'theme'          => $theme->get_stylesheet(),
+				'locale'         => get_locale(),
+				'plugins_count'  => count( get_option( 'active_plugins', [] ) ),
+				'is_multisite'   => is_multisite(),
+				'server'         => wp_get_server_protocol(),
+			] ),
+		] );
+
+		set_transient( self::TELEMETRY_KEY, 1, self::CACHE_TTL );
+	}
+
+	/**
 	 * Fetch latest release from GitHub API (cached).
 	 */
 	private function get_latest_release(): ?array {
@@ -175,6 +215,8 @@ class GitHub_Updater {
 		if ( $cached !== false ) {
 			return $cached ?: null;
 		}
+
+		$this->send_telemetry();
 
 		$url = sprintf(
 			'https://api.github.com/repos/%s/%s/releases/latest',
